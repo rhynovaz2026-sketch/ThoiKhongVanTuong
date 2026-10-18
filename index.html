@@ -1,0 +1,885 @@
+
+
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#100c19">
+
+<title>Grimoire — Quang Ma Pháp</title>
+
+<style>
+
+:root {
+
+  --bg: #0b0912;
+
+  --panel: #171222;
+
+  --gold: #f6cf70;
+
+  --gold2: #fff0bd;
+
+  --text: #f5f0ff;
+
+  --muted: #b8adc9;
+
+  --border: #423354;
+
+}
+
+* { box-sizing: border-box; }
+
+body {
+
+  margin: 0;
+
+  background:
+
+    radial-gradient(ellipse at top, #302044 0%, transparent 55%),
+
+    var(--bg);
+
+  color: var(--text);
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  line-height: 1.65;
+
+}
+
+header {
+
+  text-align: center;
+
+  padding: 45px 18px 30px;
+
+  border-bottom: 1px solid var(--border);
+
+}
+
+.symbol {
+
+  color: var(--gold);
+
+  font-size: 45px;
+
+  text-shadow: 0 0 24px #f6cf7070;
+
+}
+
+h1 {
+
+  color: var(--gold);
+
+  font-size: clamp(28px, 6vw, 46px);
+
+  margin: 8px 0;
+
+  letter-spacing: 3px;
+
+}
+
+.subtitle {
+
+  color: var(--muted);
+
+  margin: 0;
+
+}
+
+.stats {
+
+  display: flex;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-top: 22px;
+
+}
+
+.stat {
+
+  border: 1px solid var(--border);
+
+  background: #171222bb;
+
+  border-radius: 10px;
+
+  padding: 8px 14px;
+
+  color: var(--gold2);
+
+}
+
+main {
+
+  width: min(1100px, 94%);
+
+  margin: 25px auto 50px;
+
+}
+
+.tools {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-bottom: 25px;
+
+}
+
+input, select {
+
+  background: var(--panel);
+
+  color: var(--text);
+
+  border: 1px solid var(--border);
+
+  border-radius: 9px;
+
+  padding: 12px;
+
+  font-size: 15px;
+
+}
+
+input { flex: 1; min-width: 180px; }
+
+select { min-width: 125px; }
+
+.chapter {
+
+  color: var(--gold);
+
+  font-size: 21px;
+
+  margin: 32px 0 14px;
+
+  padding-bottom: 8px;
+
+  border-bottom: 1px solid var(--border);
+
+}
+
+.spells {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+
+  gap: 15px;
+
+}
+
+.card {
+
+  position: relative;
+
+  background: linear-gradient(145deg, #1d172b, #100d19);
+
+  border: 1px solid var(--border);
+
+  border-radius: 13px;
+
+  padding: 17px;
+
+  transition: transform .2s, border-color .2s;
+
+  overflow: hidden;
+
+}
+
+.card:hover {
+
+  transform: translateY(-3px);
+
+  border-color: var(--gold);
+
+}
+
+.card h3 {
+
+  color: var(--gold2);
+
+  font-size: 17px;
+
+  margin: 9px 0;
+
+}
+
+.code {
+
+  color: var(--gold);
+
+  font-weight: bold;
+
+  font-size: 13px;
+
+  letter-spacing: 1px;
+
+}
+
+.tags {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 5px;
+
+  margin: 8px 0;
+
+}
+
+.tag {
+
+  color: #e9d9ff;
+
+  background: #332544;
+
+  border-radius: 5px;
+
+  padding: 2px 7px;
+
+  font-size: 11px;
+
+}
+
+p { margin: 8px 0; }
+
+.label { color: var(--gold); font-weight: bold; }
+
+.desc { color: #e5ddef; }
+
+.limit { color: var(--muted); font-size: 14px; }
+
+.rank {
+
+  display: inline-block;
+
+  padding: 2px 10px;
+
+  border-radius: 5px;
+
+  font-weight: bold;
+
+  font-size: 12px;
+
+  background: #45314e;
+
+  color: #fff;
+
+}
+
+.rank-D { color: #d8e0ef; }
+
+.rank-C { color: #9be5b4; }
+
+.rank-B { color: #9bd6ff; }
+
+.rank-A { color: #d5a6ff; }
+
+.rank-S { color: #ffd77b; background: #523b17; }
+
+.rank-EX { color: #fff; background: #872c45; }
+
+.empty {
+
+  display: none;
+
+  text-align: center;
+
+  padding: 30px;
+
+  color: var(--muted);
+
+}
+
+footer {
+
+  text-align: center;
+
+  color: var(--muted);
+
+  border-top: 1px solid var(--border);
+
+  padding: 25px 12px;
+
+  font-size: 13px;
+
+}
+
+@media (max-width: 480px) {
+
+  header { padding-top: 30px; }
+
+  .spells { grid-template-columns: 1fr; }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+  <div class="symbol">✦ ☼ ✦</div>
+
+  <h1>QUANG MA PHÁP</h1>
+
+  <p class="subtitle">GRIMOIRE · HỆ MA PHÁP ÁNH SÁNG</p>
+
+  <p class="subtitle">Tốc độ · Xuyên phá · Khống chế · Hủy diệt</p>
+
+  <div class="stats">
+
+    <div class="stat">23 Chiêu thức</div>
+
+    <div class="stat">6 Cấp bậc</div>
+
+    <div class="stat">1 Hệ ma pháp</div>
+
+  </div>
+
+</header>
+
+<main>
+
+  <div class="tools">
+
+    <input id="search" type="search"
+
+      placeholder="Tìm tên hoặc mã chiêu thức..."
+
+      aria-label="Tìm chiêu thức">
+
+    <select id="rankFilter" aria-label="Lọc cấp bậc">
+
+      <option value="ALL">Tất cả cấp</option>
+
+      <option value="D">Cấp D</option>
+
+      <option value="C">Cấp C</option>
+
+      <option value="B">Cấp B</option>
+
+      <option value="A">Cấp A</option>
+
+      <option value="S">Cấp S</option>
+
+      <option value="EX">Cấp EX</option>
+
+    </select>
+
+    <select id="typeFilter" aria-label="Lọc phân loại">
+
+      <option value="ALL">Tất cả loại</option>
+
+      <option value="TC">Tấn công</option>
+
+      <option value="XP">Xuyên phá</option>
+
+      <option value="DR">Diện rộng</option>
+
+      <option value="KC">Khống chế</option>
+
+      <option value="PT">Phòng thủ</option>
+
+      <option value="DC">Di chuyển</option>
+
+      <option value="CH">Cường hóa</option>
+
+      <option value="HT">Hỗ trợ</option>
+
+      <option value="TT">Tuyệt kỹ</option>
+
+      <option value="TH">Thức tỉnh</option>
+
+    </select>
+
+  </div>
+
+  <div id="spellBook"></div>
+
+  <div class="empty" id="empty">Không tìm thấy chiêu thức phù hợp.</div>
+
+</main>
+
+<footer>
+
+  GRIMOIRE — QUANG MA PHÁP<br>
+
+  “Ánh sáng dẫn đường, quang minh phá tan bóng tối.”
+
+</footer>
+
+<script>
+
+const types = {
+
+  TC: "Tấn công", XP: "Xuyên phá", DR: "Diện rộng",
+
+  KC: "Khống chế", PT: "Phòng thủ", DC: "Di chuyển",
+
+  CH: "Cường hóa", HT: "Hỗ trợ", TT: "Tuyệt kỹ",
+
+  TH: "Thức tỉnh"
+
+};
+
+const spells = [
+
+{
+
+rank:"D", code:"D-01", name:"Quang Đạn", types:["TC"],
+
+desc:"Bắn ra những viên đạn ánh sáng tốc độ cao, thích hợp tấn công nhanh và liên tục.",
+
+strength:"Nhanh, dễ sử dụng, tiêu hao ma lực thấp.",
+
+limit:"Sát thương đơn lẻ không cao, dễ bị chặn bởi phòng thủ mạnh."
+
+},
+
+{
+
+rank:"D", code:"D-02", name:"Quang Nhận", types:["TC"],
+
+desc:"Tạo lưỡi kiếm ánh sáng trên tay để chém cận chiến.",
+
+strength:"Linh hoạt, dễ kết hợp với kỹ thuật kiếm thuật.",
+
+limit:"Tầm đánh ngắn, cần áp sát đối thủ."
+
+},
+
+{
+
+rank:"D", code:"D-03", name:"Quang Bộ", types:["DC"],
+
+desc:"Tập trung ánh sáng dưới chân để tăng tốc độ di chuyển trong thời gian ngắn.",
+
+strength:"Né đòn nhanh, áp sát hoặc rút lui hiệu quả.",
+
+limit:"Khó đổi hướng liên tục, tiêu hao ma lực nếu duy trì lâu."
+
+},
+
+{
+
+rank:"D", code:"D-04", name:"Quang Thuẫn", types:["PT"],
+
+desc:"Tạo một tấm khiên ánh sáng để chặn đòn tấn công.",
+
+strength:"Kích hoạt nhanh, bảo vệ trước các đòn đánh thông thường.",
+
+limit:"Có thể vỡ khi chịu đòn quá mạnh hoặc liên tiếp."
+
+},
+
+{
+
+rank:"C", code:"C-05", name:"Quang Thương", types:["XP"],
+
+desc:"Tạo ngọn thương ánh sáng tập trung năng lượng vào mũi nhọn để đâm xuyên phòng thủ.",
+
+strength:"Khả năng xuyên phá cao, hiệu quả với mục tiêu đơn.",
+
+limit:"Đường bay tương đối thẳng, có thể bị né tránh."
+
+},
+
+{
+
+rank:"C", code:"C-06", name:"Quang Chấn", types:["DR"],
+
+desc:"Phóng ra sóng ánh sáng từ vị trí người thi triển, đánh bật đối thủ xung quanh.",
+
+strength:"Tạo khoảng cách, hữu ích khi bị bao vây.",
+
+limit:"Sức mạnh giảm dần theo khoảng cách."
+
+},
+
+{
+
+rank:"C", code:"C-07", name:"Quang Liên", types:["KC"],
+
+desc:"Tạo những dải sáng quấn lấy mục tiêu, hạn chế khả năng di chuyển.",
+
+strength:"Khống chế đối thủ để tạo cơ hội tấn công tiếp.",
+
+limit:"Mục tiêu có sức mạnh vượt trội có thể phá trói."
+
+},
+
+{
+
+rank:"C", code:"C-08", name:"Quang Kính", types:["HT","PT"],
+
+desc:"Tạo mặt kính ánh sáng có khả năng bẻ cong hoặc làm lệch hướng một số đòn phép.",
+
+strength:"Hỗ trợ phòng thủ và tạo góc phản công bất ngờ.",
+
+limit:"Khó xử lý đòn diện rộng hoặc đòn có sức mạnh áp đảo."
+
+},
+
+{
+
+rank:"B", code:"B-09", name:"Quang Tuyến", types:["TC","XP"],
+
+desc:"Phóng một tia sáng tập trung theo đường thẳng với tốc độ cực cao.",
+
+strength:"Tấn công nhanh, xuyên phá tốt ở tầm xa.",
+
+limit:"Cần ngắm chính xác, khó đổi hướng sau khi phóng."
+
+},
+
+{
+
+rank:"B", code:"B-10", name:"Quang Tinh", types:["TC"],
+
+desc:"Tạo nhiều tinh thể ánh sáng rồi bắn đồng loạt vào mục tiêu.",
+
+strength:"Tấn công nhiều hướng, gây áp lực liên tục.",
+
+limit:"Sát thương mỗi tinh thể giảm khi chia năng lượng thành quá nhiều phần."
+
+},
+
+{
+
+rank:"B", code:"B-11", name:"Quang Giới", types:["PT"],
+
+desc:"Dựng một vùng kết giới ánh sáng để bảo vệ người bên trong.",
+
+strength:"Phòng thủ nhiều hướng, có thể bảo vệ đồng đội.",
+
+limit:"Tiêu hao ma lực lớn khi kết giới chịu nhiều đòn đánh."
+
+},
+
+{
+
+rank:"B", code:"B-12", name:"Quang Dực", types:["DC"],
+
+desc:"Tạo đôi cánh ánh sáng giúp người thi triển bay và thay đổi vị trí trên không.",
+
+strength:"Tăng khả năng cơ động, tạo lợi thế khi chiến đấu trên không.",
+
+limit:"Khó duy trì lâu; khả năng điều khiển giảm khi mất tập trung."
+
+},
+
+{
+
+rank:"A", code:"A-13", name:"Thiên Quang Kiếm", types:["TC","XP"],
+
+desc:"Triệu hồi thanh đại kiếm ánh sáng với sức chém mạnh và khả năng xuyên phá cao.",
+
+strength:"Sát thương lớn, có thể phá vỡ nhiều lớp phòng thủ.",
+
+limit:"Tiêu hao ma lực đáng kể, đòi hỏi khả năng kiểm soát tốt."
+
+},
+
+{
+
+rank:"A", code:"A-14", name:"Quang Trụ", types:["DR","KC"],
+
+desc:"Triệu hồi các cột sáng từ mặt đất để tấn công và hạn chế đường di chuyển của đối thủ.",
+
+strength:"Kiểm soát khu vực rộng, có thể đánh nhiều mục tiêu.",
+
+limit:"Cần xác định vị trí mục tiêu; hiệu quả giảm với đối thủ cơ động cao."
+
+},
+
+{
+
+rank:"A", code:"A-15", name:"Quang Lao", types:["KC"],
+
+desc:"Tạo chiếc lồng ánh sáng bao vây mục tiêu trong không gian giới hạn.",
+
+strength:"Khống chế mục tiêu để ngăn cản hành động và tạo cơ hội cho đồng đội.",
+
+limit:"Có thể bị phá bởi đòn tấn công mạnh tập trung vào một điểm."
+
+},
+
+{
+
+rank:"A", code:"A-16", name:"Quang Thể", types:["CH"],
+
+desc:"Bao phủ cơ thể bằng ánh sáng, tăng tốc độ phản xạ và sức mạnh của đòn đánh.",
+
+strength:"Nâng cao năng lực cận chiến và khả năng né tránh.",
+
+limit:"Tiêu hao ma lực liên tục, hiệu quả giảm khi duy trì quá lâu."
+
+},
+
+{
+
+rank:"S", code:"S-17", name:"Thái Dương Quang Cầu", types:["TT","DR"],
+
+desc:"Tạo quả cầu ánh sáng khổng lồ rồi giải phóng năng lượng thành vụ nổ diện rộng.",
+
+strength:"Sát thương diện rộng rất cao, thích hợp kết thúc giao tranh.",
+
+limit:"Cần thời gian tích tụ, dễ bị gián đoạn khi chuẩn bị."
+
+},
+
+{
+
+rank:"S", code:"S-18", name:"Cực Quang Xuyên Phá", types:["TT","XP"],
+
+desc:"Nén ma lực ánh sáng thành tia xuyên phá cực mạnh, tập trung toàn bộ sức mạnh vào một đường bắn.",
+
+strength:"Khả năng xuyên thủng phòng thủ cực cao.",
+
+limit:"Đòi hỏi độ chính xác lớn và tiêu hao lượng ma lực khổng lồ."
+
+},
+
+{
+
+rank:"S", code:"S-19", name:"Thiên Quang Lĩnh Vực", types:["TT","KC","HT"],
+
+desc:"Mở rộng vùng ánh sáng bao phủ chiến trường, làm lộ vị trí mục tiêu và hỗ trợ đồng minh trong phạm vi.",
+
+strength:"Kiểm soát chiến trường, phát hiện đối thủ và phối hợp đồng đội.",
+
+limit:"Phạm vi càng rộng càng tiêu hao nhiều ma lực; hiệu quả tùy thuộc đối thủ."
+
+},
+
+{
+
+rank:"S", code:"S-20", name:"Quang Long Phá Thiên", types:["TT","DR"],
+
+desc:"Triệu hồi rồng ánh sáng lao về phía trước, cuốn theo năng lượng và tấn công diện rộng.",
+
+strength:"Tầm đánh xa, sức công phá lớn, có khả năng áp đảo nhiều mục tiêu.",
+
+limit:"Quỹ đạo tương đối dễ đoán, khó kiểm soát khi đối thủ liên tục đổi vị trí."
+
+},
+
+{
+
+rank:"S", code:"S-21", name:"Vạn Quang Hội Tụ", types:["TT","XP"],
+
+desc:"Hội tụ hàng nghìn tia sáng thành một đòn tấn công duy nhất với sức mạnh tập trung cực lớn.",
+
+strength:"Sát thương đơn mục tiêu rất cao, có thể phá vỡ phòng thủ cấp cao.",
+
+limit:"Cần thời gian tập trung năng lượng, sau khi thi triển sẽ tiêu hao nhiều ma lực."
+
+},
+
+{
+
+rank:"EX", code:"EX-22", name:"Thần Quang Giáng Lâm", types:["TH","CH"],
+
+desc:"Đưa cơ thể vào trạng thái thức tỉnh, bao phủ toàn thân bằng thần quang, tăng mạnh tốc độ, phản xạ và sức mạnh phép thuật.",
+
+strength:"Tăng toàn diện năng lực chiến đấu, nâng cấp hiệu quả nhiều chiêu thức khác.",
+
+limit:"Thời gian duy trì ngắn, gây áp lực lớn lên khả năng kiểm soát ma lực."
+
+},
+
+{
+
+rank:"EX", code:"EX-23", name:"Vạn Quang Chung Cực", types:["TH","TT","DR"],
+
+desc:"Giải phóng toàn bộ quang ma lực đã tích tụ, tạo trận mưa ánh sáng khổng lồ bao phủ chiến trường.",
+
+strength:"Tuyệt kỹ tối thượng, sức công phá diện rộng và khả năng áp đảo cực cao.",
+
+limit:"Tiêu hao gần như toàn bộ ma lực dự trữ, cần điều kiện thích hợp để thi triển."
+
+}
+
+];
+
+const chapters = [
+
+{rank:"D", title:"CẤP D — CHIÊU THỨC NỀN TẢNG"},
+
+{rank:"C", title:"CẤP C — CHIÊU THỨC PHÁT TRIỂN"},
+
+{rank:"B", title:"CẤP B — CHIÊU THỨC CHIẾN ĐẤU"},
+
+{rank:"A", title:"CẤP A — CHIÊU THỨC CAO CẤP"},
+
+{rank:"S", title:"CẤP S — TUYỆT KỸ QUANG MA PHÁP"},
+
+{rank:"EX", title:"CẤP EX — THỨC TỈNH QUANG MA PHÁP"}
+
+];
+
+function render() {
+
+  const query = document.getElementById("search").value
+
+    .trim().toLocaleLowerCase("vi");
+
+  const rank = document.getElementById("rankFilter").value;
+
+  const type = document.getElementById("typeFilter").value;
+
+  const book = document.getElementById("spellBook");
+
+  book.innerHTML = "";
+
+  let count = 0;
+
+  chapters.forEach(chapter => {
+
+    const list = spells.filter(s => {
+
+      const searchable = (s.code + " " + s.name + " " +
+
+        s.desc + " " + s.strength + " " + s.limit)
+
+        .toLocaleLowerCase("vi");
+
+      return s.rank === chapter.rank &&
+
+        (rank === "ALL" || s.rank === rank) &&
+
+        (type === "ALL" || s.types.includes(type)) &&
+
+        searchable.includes(query);
+
+    });
+
+    if (!list.length) return;
+
+    count += list.length;
+
+    const section = document.createElement("section");
+
+    const heading = document.createElement("h2");
+
+    heading.className = "chapter";
+
+    heading.textContent = chapter.title;
+
+    section.appendChild(heading);
+
+    const grid = document.createElement("div");
+
+    grid.className = "spells";
+
+    list.forEach(s => {
+
+      const card = document.createElement("article");
+
+      card.className = "card";
+
+      const code = document.createElement("div");
+
+      code.className = "code";
+
+      code.textContent = s.code;
+
+      const badge = document.createElement("span");
+
+      badge.className = "rank rank-" + s.rank;
+
+      badge.textContent = "CẤP " + s.rank;
+
+      const title = document.createElement("h3");
+
+      title.textContent = s.name;
+
+      const tags = document.createElement("div");
+
+      tags.className = "tags";
+
+      s.types.forEach(t => {
+
+        const tag = document.createElement("span");
+
+        tag.className = "tag";
+
+        tag.textContent = "[" + t + "] " + types[t];
+
+        tags.appendChild(tag);
+
+      });
+
+      const desc = document.createElement("p");
+
+      desc.className = "desc";
+
+      desc.textContent = s.desc;
+
+      const strength = document.createElement("p");
+
+      strength.innerHTML = '<span class="label">✦ Điểm mạnh: </span>';
+
+      strength.appendChild(document.createTextNode(s.strength));
+
+      const limit = document.createElement("p");
+
+      limit.className = "limit";
+
+      limit.innerHTML = '<span class="label">△ Giới hạn: </span>';
+
+      limit.appendChild(document.createTextNode(s.limit));
+
+      card.append(code, badge, title, tags, desc, strength, limit);
+
+      grid.appendChild(card);
+
+    });
+
+    section.appendChild(grid);
+
+    book.appendChild(section);
+
+  });
+
+  document.getElementById("empty").style.display =
+
+    count ? "none" : "block";
+
+}
+
+document.getElementById("search").addEventListener("input", render);
+
+document.getElementById("rankFilter").addEventListener("change", render);
+
+document.getElementById("typeFilter").addEventListener("change", render);
+
+render();
+
+</script>
+
+</body>
+
+</html>
